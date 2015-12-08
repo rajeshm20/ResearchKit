@@ -177,7 +177,7 @@
     const CGFloat AssumedHeaderBaselineToStepViewTop = ORKGetMetricForScreenType(ORKScreenMetricLearnMoreBaselineToStepViewTop, screenType);
     
     static const CGFloat CaptionBaselineToTapCountBaseline = 56;
-    static const CGFloat TapButtonBottomToBottom = 36;
+    CGFloat tapButtonBottomToBottom = self.hasSkipButton ? 0 : 36;
     
     // On the iPhone, _progressView is positioned outside the bounds of this view, to be in-between the header and this view.
     // On the iPad, we want to stretch this out a bit so it feels less compressed.
@@ -219,7 +219,7 @@
                                                         relatedBy:NSLayoutRelationEqual
                                                            toItem:_buttonContainer
                                                         attribute:NSLayoutAttributeBottom
-                                                       multiplier:1 constant:TapButtonBottomToBottom]];
+                                                       multiplier:1 constant:tapButtonBottomToBottom]];
     
     [constraints addObjectsFromArray:
      [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_tapCountLabel]-(>=10)-[_buttonContainer]"
