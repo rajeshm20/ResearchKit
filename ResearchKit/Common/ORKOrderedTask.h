@@ -95,6 +95,13 @@ ORK_CLASS_AVAILABLE
  */
 - (ORKStep *)removeStepAtIndex:(NSUInteger)index;
 
+/**
+ Modify the array by removing the step at the given index
+ @param step        The step to look for
+ @return            The index position of the step (or NSNotFound if not found)
+ */
+- (NSUInteger)indexOfStep:(ORKStep *)step;
+
 @end
 
 
