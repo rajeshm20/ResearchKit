@@ -1001,6 +1001,7 @@ void ORKStepArrayAddStep(NSMutableArray *array, ORKStep *step) {
             activeStep.shouldPlaySoundOnStart = YES;
             activeStep.shouldVibrateOnFinish = YES;
             activeStep.shouldPlaySoundOnFinish = YES;
+            activeStep.finishedSpokenInstruction = ORKLocalizedString(@"WALK_BACK_AND_FORTH_FINISHED_VOICE", nil);
             
             ORKStepArrayAddStep(steps, activeStep);
         }
