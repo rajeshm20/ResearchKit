@@ -973,6 +973,7 @@ void ORKStepArrayAddStep(NSMutableArray *array, ORKStep *step) {
             walkingStep.stepDuration = walkDuration; // Set the walking duration to the step duration
             walkingStep.shouldVibrateOnStart = YES;
             walkingStep.shouldPlaySoundOnStart = YES;
+            walkingStep.shouldSpeakHalfwayCount = YES;
             
             ORKStepArrayAddStep(steps, walkingStep);
         }
@@ -1002,6 +1003,7 @@ void ORKStepArrayAddStep(NSMutableArray *array, ORKStep *step) {
             activeStep.shouldVibrateOnFinish = YES;
             activeStep.shouldPlaySoundOnFinish = YES;
             activeStep.finishedSpokenInstruction = ORKLocalizedString(@"WALK_BACK_AND_FORTH_FINISHED_VOICE", nil);
+            activeStep.shouldSpeakHalfwayCount = YES;
             
             ORKStepArrayAddStep(steps, activeStep);
         }
