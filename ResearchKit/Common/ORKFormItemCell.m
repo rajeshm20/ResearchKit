@@ -31,6 +31,7 @@
 
 
 #import "ORKFormItemCell.h"
+#import "ORKSkin.h"
 #import "ORKHelpers.h"
 #import "ORKAnswerFormat_Internal.h"
 #import "ORKFormItem_Internal.h"
