@@ -48,6 +48,13 @@
     return nil;
 }
 
+- (UIScrollView*)registeredScrollViewForViewController:(UIViewController*)viewController {
+    
+    
+    // By default, there is no scrollview to register
+    return nil;
+}
+
 - (void)stepDidChange {
     if (![self isViewLoaded]) {
         return;
@@ -183,6 +190,14 @@
     if (!viewController) {
         ORK_Log_Debug(@"No view controller!");
         return;
+    }
+    
+    // Set self as the delegate if this is a step view controller and the delegate is not already set
+    if ([viewController isKindOfClass:[ORKStepViewController class]]) {
+        ORKStepViewController *stepViewController = (ORKStepViewController*)viewController;
+        if (stepViewController.delegate == nil) {
+            stepViewController.delegate = self;
+        }
     }
     
     NSUInteger currentIndex = _currentPageIndex;

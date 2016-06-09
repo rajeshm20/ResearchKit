@@ -515,7 +515,7 @@
 		FF9055FC1CE537BB0049D12A /* ORKTableStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FF9055FA1CE537BB0049D12A /* ORKTableStepViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FF9055FD1CE537BB0049D12A /* ORKTableStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9055FB1CE537BB0049D12A /* ORKTableStepViewController.m */; };
 		FF9056011CE5404A0049D12A /* ORKTableStepViewController_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = FF9056001CE5404A0049D12A /* ORKTableStepViewController_Internal.h */; };
-		FFE0143E1D0A197200A0C640 /* ORKPageStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FFE0143C1D0A197200A0C640 /* ORKPageStepViewController.h */; };
+		FFE0143E1D0A197200A0C640 /* ORKPageStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FFE0143C1D0A197200A0C640 /* ORKPageStepViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FFE0143F1D0A197200A0C640 /* ORKPageStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FFE0143D1D0A197200A0C640 /* ORKPageStepViewController.m */; };
 /* End PBXBuildFile section */
 
