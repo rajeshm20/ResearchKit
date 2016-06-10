@@ -30,6 +30,8 @@
 
 #import <ResearchKit/ResearchKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 ORK_CLASS_AVAILABLE
 @interface ORKPageStepViewController : ORKStepViewController <UIPageViewControllerDelegate, ORKStepViewControllerDelegate>
 
@@ -50,11 +52,13 @@ ORK_CLASS_AVAILABLE
 /**
  View controller to display for a given page index object.
  */
-- (UIViewController *)viewControllerForPageIndex:(id <NSCopying, NSCoding, NSObject>)pageIndex;
+- (UIViewController * _Nullable)viewControllerForPageIndex:(id <NSCopying, NSCoding, NSObject>)pageIndex;
 
 /**
  Scrollview to register for scrolling notifications
  */
-- (UIScrollView*)registeredScrollViewForViewController:(UIViewController*)viewController;
+- (UIScrollView * _Nullable)registeredScrollViewForViewController:(UIViewController*)viewController;
 
 @end
+
+NS_ASSUME_NONNULL_END
