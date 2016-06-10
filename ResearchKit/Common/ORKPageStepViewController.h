@@ -30,20 +30,35 @@
 
 #import <ResearchKit/ResearchKit.h>
 
-ORK_CLASS_AVAILABLE
-@interface ORKTableStepViewController : ORKStepViewController <UITableViewDataSource, UITableViewDelegate>
+NS_ASSUME_NONNULL_BEGIN
 
-@property (nonatomic, readonly) UITableView *tableView;
+ORK_CLASS_AVAILABLE
+@interface ORKPageStepViewController : ORKStepViewController <UIPageViewControllerDelegate, ORKStepViewControllerDelegate>
+
+@property (nonatomic, readonly) UIPageViewController *pageViewController;
+@property (nonatomic, readonly) NSUInteger currentPageIndex;
 
 /**
- * Whether or not the continue button should be enabled for this step. Default = YES
- * @return state of continue button
+ This is a mapping of the objects used to represent each page in the step. This could be any type of 
+ object that can be copied and encoded.
  */
-- (BOOL)continueButtonEnabled;
+@property (nonatomic, copy) NSArray <id <NSCopying, NSCoding, NSObject>> *pageIndices;
 
-// Required implementations for a data source. By default there are 0 rows in the table.
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+/**
+ Called when a change to the step may require updating the page indices.
+ */
+- (void)updatePageIndices;
+
+/**
+ View controller to display for a given page index object.
+ */
+- (UIViewController * _Nullable)viewControllerForPageIndex:(id <NSCopying, NSCoding, NSObject>)pageIndex;
+
+/**
+ Scrollview to register for scrolling notifications
+ */
+- (UIScrollView * _Nullable)registeredScrollViewForViewController:(UIViewController*)viewController;
 
 @end
+
+NS_ASSUME_NONNULL_END

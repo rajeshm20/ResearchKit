@@ -735,6 +735,12 @@
     return [self numberOfRowsInSection:section];
 }
 
+- (ORKFormItem*)formItemAtIndexPath:(NSIndexPath *)indexPath {
+    ORKTableSection *section = (ORKTableSection *)_sections[indexPath.section];
+    ORKTableCellItem *cellItem = [section items][indexPath.row];
+    return cellItem.formItem;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = [NSString stringWithFormat:@"%ld-%ld",(long)indexPath.section, (long)indexPath.row];
     
