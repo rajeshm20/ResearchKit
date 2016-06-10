@@ -64,6 +64,7 @@ typedef NS_ENUM(NSInteger, ORKConsentReviewPhase) {
     NSString *_signatureLast;
     UIImage *_signatureImage;
     BOOL _documentReviewed;
+    NSArray *_formResults;
     
     NSUInteger _currentPageIndex;
 }
@@ -165,6 +166,12 @@ static NSString *const _FamilyNameIdentifier = @"family";
                                                              text:self.step.text];
     formStep.useSurveyMode = NO;
     
+    ORKConsentReviewStep *step = [self consentReviewStep];
+    if (step.formItems.count > 0) {
+        [formStep setFormItems:step.formItems];
+    }
+    else {
+        
     ORKTextAnswerFormat *nameAnswerFormat = [ORKTextAnswerFormat textAnswerFormat];
     nameAnswerFormat.multipleLines = NO;
     nameAnswerFormat.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -189,6 +196,8 @@ static NSString *const _FamilyNameIdentifier = @"family";
     }
     
     [formStep setFormItems:formItems];
+        
+    }
     
     formStep.optional = NO;
     
@@ -301,7 +310,13 @@ static NSString *const _FamilyNameIdentifier = @"family";
     result.consented = _documentReviewed;
     result.startDate = parentResult.startDate;
     result.endDate = parentResult.endDate;
-    parentResult.results = @[result];
+    
+    NSArray *results = @[result];
+    if (_formResults.count > 0) {
+        results = [results arrayByAddingObjectsFromArray:_formResults];
+    }
+    
+    parentResult.results = results;
     
     return parentResult;
 }
@@ -389,6 +404,7 @@ static NSString *const _FamilyNameIdentifier = @"family";
         _signatureFirst = (NSString *)fnr.textAnswer;
         ORKTextQuestionResult *lnr = (ORKTextQuestionResult *)[result resultForIdentifier:_FamilyNameIdentifier];
         _signatureLast = (NSString *)lnr.textAnswer;
+        _formResults = [result.results copy];
         [self notifyDelegateOnResultChange];
     }
 }
@@ -431,6 +447,7 @@ static NSString *const _FamilyNameIdentifier = @"family";
     _signatureLast = nil;
     _signatureImage = nil;
     _documentReviewed = NO;
+    _formResults = nil;
     [self notifyDelegateOnResultChange];
     
     [self goForward];
@@ -455,6 +472,8 @@ static NSString *const _ORKSignatureLastRestoreKey = @"signatureLast";
 static NSString *const _ORKSignatureImageRestoreKey = @"signatureImage";
 static NSString *const _ORKDocumentReviewedRestoreKey = @"documentReviewed";
 static NSString *const _ORKCurrentPageIndexRestoreKey = @"currentPageIndex";
+static NSString *const _ORKFormResultsKey = @"formResults";
+static NSString *const _ORKPageIndicesKey = @"pageIndices";
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
@@ -465,6 +484,8 @@ static NSString *const _ORKCurrentPageIndexRestoreKey = @"currentPageIndex";
     [coder encodeObject:_signatureImage forKey:_ORKSignatureImageRestoreKey];
     [coder encodeBool:_documentReviewed forKey:_ORKDocumentReviewedRestoreKey];
     [coder encodeInteger:_currentPageIndex forKey:_ORKCurrentPageIndexRestoreKey];
+    [coder encodeObject:_formResults forKey:_ORKFormResultsKey];
+    [coder encodeObject:_pageIndices forKey:_ORKPageIndicesKey];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
@@ -478,6 +499,8 @@ static NSString *const _ORKCurrentPageIndexRestoreKey = @"currentPageIndex";
     _signatureImage = [coder decodeObjectOfClass:[NSString class] forKey:_ORKSignatureImageRestoreKey];
     _documentReviewed = [coder decodeBoolForKey:_ORKDocumentReviewedRestoreKey];
     _currentPageIndex = [coder decodeIntegerForKey:_ORKCurrentPageIndexRestoreKey];
+    _pageIndices = [[coder decodeObjectOfClass:[NSArray class] forKey:_ORKPageIndicesKey] mutableCopy];
+    _formResults = [coder decodeObjectOfClass:[NSArray class] forKey:_ORKFormResultsKey];
     
     [self goToPage:_currentPageIndex animated:NO];
 }
