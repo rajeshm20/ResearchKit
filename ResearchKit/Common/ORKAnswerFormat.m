@@ -1994,6 +1994,25 @@ static NSArray *ork_processTextChoices(NSArray<ORKTextChoice *> *textChoices) {
     return string;
 }
 
+
+- (ORKAnswerFormat *)confirmationAnswerFormatWithOriginalItemIdentifier:(NSString *)originalItemIdentifier
+                                                           errorMessage:(NSString *)errorMessage {
+    
+    ORKTextAnswerFormat *fmt = [[ORKConfirmTextAnswerFormat alloc] initWithOriginalItemIdentifier:originalItemIdentifier errorMessage:errorMessage];
+    
+    fmt->_maximumLength = _maximumLength;
+    fmt->_validationRegex = [_validationRegex copy];
+    fmt->_invalidMessage = [_invalidMessage copy];
+    fmt->_autocapitalizationType = _autocapitalizationType;
+    fmt->_autocorrectionType = _autocorrectionType;
+    fmt->_spellCheckingType = _spellCheckingType;
+    fmt->_keyboardType = _keyboardType;
+    fmt->_multipleLines = _multipleLines;
+    fmt->_secureTextEntry = _secureTextEntry;
+    
+    return fmt;
+}
+
 #pragma mark NSSecureCoding
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
