@@ -750,6 +750,14 @@ encondingTable =
           PROPERTY(placeholder, NSString, NSObject, YES, nil, nil),
           PROPERTY(answerFormat, ORKAnswerFormat, NSObject, NO, nil, nil),
           })),
+   ENTRY(ORKPageStep,
+         ^id(NSDictionary *dict, ORKESerializationPropertyGetter getter) {
+             ORKPageStep *step = [[ORKPageStep alloc] initWithIdentifier:GETPROP(dict, identifier) pageTask:GETPROP(dict, pageTask)];
+             return step;
+         },
+         (@{
+            PROPERTY(pageTask, ORKOrderedTask, NSObject, NO, nil, nil),
+            })),
   ENTRY(ORKHealthKitCharacteristicTypeAnswerFormat,
         ^id(NSDictionary *dict, ORKESerializationPropertyGetter getter) {
             return [[ORKHealthKitCharacteristicTypeAnswerFormat alloc] initWithCharacteristicType:GETPROP(dict, characteristicType)];
@@ -1283,6 +1291,10 @@ encondingTable =
          nil,
          (@{
             PROPERTY(enabledAssistiveTechnology, NSString, NSObject, YES, nil, nil),
+            })),
+   ENTRY(ORKPageResult,
+         nil,
+         (@{
             })),
    
    } mutableCopy];

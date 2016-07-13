@@ -109,6 +109,24 @@ ORK_CLASS_AVAILABLE
 
 @end
 
+/**
+ The `ORKPageResult` is an `ORKStepResult` subclass of a collection of `ORKStepResult`
+ objects. This is considered private, and it is used internally by `ORKPageStepViewController`
+ to track the result set.
+ */
+ORK_CLASS_AVAILABLE
+@interface ORKPageResult : ORKTaskResult
+
+- (instancetype)initWithPageStep:(ORKPageStep *)step stepResult:(ORKStepResult*)result;
+
+- (void)addStepResult:(nullable ORKStepResult *)stepResult;
+
+- (NSArray <ORKResult *> *)flattenResults;
+
+- (instancetype)copyWithOutputDirectory:(NSURL *)outputDirectory;
+
+@end
+
 
 NS_ASSUME_NONNULL_END
 
